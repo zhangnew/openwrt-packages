@@ -48,6 +48,7 @@ git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall passwall1 && m
 git clone --depth 1 https://github.com/sirpdboy/luci-theme-kucat -b js --depth 1
 git clone --depth 1 https://github.com/morytyann/OpenWrt-mihomo OpenWrt-mihomo && mv -n OpenWrt-mihomo/*mihomo ./ ; rm -rf OpenWrt-mihomo
 git clone --depth 1 https://github.com/muink/openwrt-fchomo openwrt-fchomo && mv -n openwrt-fchomo/*homo ./ ; rm -rf openwrt-fchomo
+git clone --depth 1 https://github.com/animegasan/luci-app-wolplus
 
 svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-ipkg
 svn export https://github.com/Ysurac/openmptcprouter-feeds/trunk/luci-app-iperf
@@ -71,16 +72,12 @@ git_sparse_clone openwrt-23.05 "https://github.com/openwrt/openwrt" "openwrt" \
 package/base-files package/network/config/firewall4 package/network/config/firewall package/system/opkg package/network/services/ppp \
 package/network/services/dnsmasq package/libs/openssl
 
-git_sparse_clone master "https://github.com/immortalwrt/packages" "immpack" net/sub-web net/dnsproxy net/haproxy net/cdnspeedtest \
-net/uugamebooster net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gowebdav net/udp2raw \
-admin/btop libs/wxbase libs/rapidjson libs/libcron libs/quickjspp libs/toml11 libs/libtorrent-rasterbar \
-libs/libdouble-conversion libs/qt6base libs/cxxopts libs/jpcre2 libs/alac \
-utils/cpulimit devel/gn
+git_sparse_clone master "https://github.com/immortalwrt/packages" "immpack" net/sub-web net/dnsproxy net/cdnspeedtest \
+net/uugamebooster net/oscam net/njitclient net/scutclient net/udp2raw \
+admin/btop libs/wxbase libs/rapidjson libs/libcron libs/quickjspp libs/toml11 \
+libs/libdouble-conversion libs/qt6base libs/cxxopts libs/jpcre2
 
-git_sparse_clone develop "https://github.com/Ysurac/openmptcprouter-feeds" "enmptcp" luci-app-snmpd \
-luci-app-packet-capture luci-app-mail msmtp
-
-git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow lua-ipops luci-app-macvlan luci-app-3ginfo-lite luci-app-fakemesh
+git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow lua-ipops luci-app-macvlan luci-app-fakemesh
 
 git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immortal" package/network/utils/nftables \
 package/network/utils/fullconenat package/network/utils/fullconenat-nft \
