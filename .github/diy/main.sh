@@ -65,15 +65,14 @@ mv -f miniupnpd miniupnpd-iptables
 git_sparse_clone master "https://github.com/coolsnowwolf/luci" "leanluci" libs/luci-lib-fs
 
 git_sparse_clone openwrt-23.05 "https://github.com/openwrt/packages" "22packages" \
-utils/cgroupfs-mount utils/coremark utils/watchcat utils/dockerd net/nginx net/uwsgi net/ddns-scripts \
+utils/cgroupfs-mount utils/coremark utils/watchcat utils/dockerd net/nginx net/ddns-scripts \
 net/netbird admin/netdata
 
 git_sparse_clone openwrt-23.05 "https://github.com/openwrt/openwrt" "openwrt" \
-package/base-files package/network/config/firewall4 package/network/config/firewall package/system/opkg package/network/services/ppp \
-package/network/services/dnsmasq package/libs/openssl
+package/base-files package/network/config/firewall4 package/network/config/firewall package/system/opkg \
+package/libs/openssl
 
-git_sparse_clone master "https://github.com/immortalwrt/packages" "immpack" net/sub-web net/dnsproxy net/cdnspeedtest \
-net/uugamebooster net/oscam net/njitclient net/scutclient net/udp2raw \
+git_sparse_clone master "https://github.com/immortalwrt/packages" "immpack" net/dnsproxy net/cdnspeedtest \
 admin/btop libs/wxbase libs/rapidjson libs/libcron libs/quickjspp libs/toml11 \
 libs/libdouble-conversion libs/qt6base libs/cxxopts libs/jpcre2
 
@@ -97,7 +96,6 @@ sed -i \
 -e 's/+docker /+docker +dockerd /g' \
 */Makefile
 
-sed -i 's/PKG_VERSION:=20240302/PKG_VERSION:=20240223/g; s/PKG_RELEASE:=$(AUTORELESE)/PKG_RELEASE:=1/g' webd/Makefile
 sed -i 's/+dockerd/+dockerd +cgroupfs-mount/' luci-app-docker*/Makefile
 sed -i '$i /etc/init.d/dockerd restart &' luci-app-docker*/root/etc/uci-defaults/*
 sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
