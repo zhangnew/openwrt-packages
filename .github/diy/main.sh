@@ -48,7 +48,6 @@ git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall passwall1 && m
 git clone --depth 1 https://github.com/sirpdboy/luci-theme-kucat -b js --depth 1
 git clone --depth 1 https://github.com/morytyann/OpenWrt-mihomo OpenWrt-mihomo && mv -n OpenWrt-mihomo/*mihomo ./ ; rm -rf OpenWrt-mihomo
 git clone --depth 1 https://github.com/muink/openwrt-fchomo openwrt-fchomo && mv -n openwrt-fchomo/*homo ./ ; rm -rf openwrt-fchomo
-git clone --depth 1 https://github.com/animegasan/luci-app-wolplus
 
 svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-ipkg
 svn export https://github.com/Ysurac/openmptcprouter-feeds/trunk/luci-app-iperf
@@ -68,19 +67,13 @@ git_sparse_clone openwrt-23.05 "https://github.com/openwrt/packages" "22packages
 utils/cgroupfs-mount utils/coremark utils/watchcat utils/dockerd net/nginx net/ddns-scripts \
 net/netbird admin/netdata
 
-git_sparse_clone openwrt-23.05 "https://github.com/openwrt/openwrt" "openwrt" \
-package/base-files package/network/config/firewall4 package/network/config/firewall package/system/opkg \
-package/libs/openssl
+git_sparse_clone openwrt-23.05 "https://github.com/openwrt/openwrt" "openwrt" package/libs/openssl
 
 git_sparse_clone master "https://github.com/immortalwrt/packages" "immpack" net/dnsproxy net/cdnspeedtest \
 admin/btop libs/wxbase libs/rapidjson libs/libcron libs/quickjspp libs/toml11 \
 libs/libdouble-conversion libs/qt6base libs/cxxopts libs/jpcre2
 
-git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow lua-ipops luci-app-macvlan luci-app-fakemesh
-
-git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immortal" package/network/utils/nftables \
-package/network/utils/fullconenat package/network/utils/fullconenat-nft \
-package/utils/mhz package/libs/libnftnl package/firmware/wireless-regdb
+git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" lua-ipops luci-app-macvlan luci-app-fakemesh
 
 git_sparse_clone openwrt-23.05 "https://github.com/openwrt/luci" "opluci" applications/luci-app-watchcat \
 
