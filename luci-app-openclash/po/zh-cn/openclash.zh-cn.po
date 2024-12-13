@@ -518,6 +518,9 @@ msgstr "国际流媒体"
 msgid "AsianTV"
 msgstr "亚洲流媒体"
 
+msgid "CN Mainland TV"
+msgstr "大陆流媒体"
+
 msgid "Proxy"
 msgstr "必须代理的流量"
 
@@ -1620,6 +1623,9 @@ msgstr "OpenClash 更新成功，即将进行重启！"
 msgid "OpenClash Update Failed, The File is Saved in /tmp/openclash.ipk, Please Try to Update Manually!"
 msgstr "OpenClash 更新失败，文件保存在 /tmp/openclash.ipk，请尝试手动更新！"
 
+msgid "OpenClash Update Failed, The File is Saved in /tmp/openclash.apk, Please Try to Update Manually!"
+msgstr "OpenClash 更新失败，文件保存在 /tmp/openclash.apk，请尝试手动更新！"
+
 msgid "Download Failed, Please Check The Network or Try Again Later!"
 msgstr "下载失败，请检查网络或稍后再试！"
 
@@ -2292,9 +2298,6 @@ msgstr "错误：设置自定义规则失败，"
 msgid "Error: Set BT/P2P DIRECT Rules Failed,"
 msgstr "错误：设置仅代理命中规则流量（BT/P2P直连）失败，"
 
-msgid "Error: Set Loop Protect Rules Failed,"
-msgstr "错误：设置防回环规则失败，"
-
 msgid "Error: Set lhie1 Rules Failed,"
 msgstr "错误：设置第三方规则（lhie1）失败，"
 
@@ -2484,14 +2487,8 @@ msgstr "提示：开始自动选择（检测）Netflix 解锁节点..."
 msgid "Tip: Start Auto Select Proxy For Disney Plus Unlock..."
 msgstr "提示：开始自动选择（检测）Disney Plus 解锁节点..."
 
-msgid "Tip: Start Auto Select Proxy For HBO Now Unlock..."
-msgstr "提示：开始自动选择（检测）HBO Now 解锁节点..."
-
 msgid "Tip: Start Auto Select Proxy For HBO Max Unlock..."
 msgstr "提示：开始自动选择（检测）HBO Max 解锁节点..."
-
-msgid "Tip: Start Auto Select Proxy For HBO GO Asia Unlock..."
-msgstr "提示：开始自动选择（检测）HBO GO Asia 解锁节点..."
 
 msgid "Tip: Start Auto Select Proxy For YouTube Premium Unlock..."
 msgstr "提示：开始自动选择（检测）YouTube Premium 解锁节点..."
@@ -2526,14 +2523,8 @@ msgstr "Netflix 策略组："
 msgid "Disney Plus Group:"
 msgstr "Disney Plus 策略组："
 
-msgid "HBO Now Group:"
-msgstr "HBO Now 策略组："
-
 msgid "HBO Max Group:"
 msgstr "HBO Max 策略组："
-
-msgid "HBO GO Asia Group:"
-msgstr "HBO GO Asia 策略组："
 
 msgid "TVB Anywhere+ Group:"
 msgstr "TVB Anywhere+ 策略组："
@@ -3057,6 +3048,9 @@ msgstr "警告：TUN 接口启动失败，请检查依赖情况或稍后重试�
 msgid "Warning: TUN Interface Start Failed, Try to Restart Again..."
 msgstr "警告：TUN 接口启动失败，尝试重启内核..."
 
+msgid "Error: Core Start Failed, Please Check The Log Infos!"
+msgstr "错误：内核启动失败，请查看《内核日志》排查失败原因！"
+
 msgid "Forced Sniff Pure IP Connections"
 msgstr "强制探测（嗅探）所有纯 IP 的连接"
 
@@ -3431,3 +3425,9 @@ msgstr "全局"
 
 msgid "Direct"
 msgstr "直连"
+
+msgid "Error: Config File Overwrite Failed,"
+msgstr "错误：配置文件覆写失败，"
+
+msgid "Edit"
+msgstr "编辑"
