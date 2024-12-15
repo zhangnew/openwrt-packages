@@ -92,6 +92,7 @@ sed -i \
 sed -i 's/+dockerd/+dockerd +cgroupfs-mount/' luci-app-docker*/Makefile
 sed -i '$i /etc/init.d/dockerd restart &' luci-app-docker*/root/etc/uci-defaults/*
 sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
+sed -i 's/-beta//g' luci-theme-alpha/Makefile
 sed -i 's/\(+luci-compat\)/\1 +luci-theme-argon/' luci-app-argon-config/Makefile
 sed -i 's/\(+luci-compat\)/\1 +luci-theme-design/' luci-app-design-config/Makefile
 sed -i 's/\(+luci-compat\)/\1 +luci-theme-argone/' luci-app-argone-config/Makefile
