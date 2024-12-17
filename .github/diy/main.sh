@@ -22,7 +22,7 @@ function mvdir() {
 git clone --depth 1 https://github.com/derisamedia/luci-theme-alpha
 git clone --depth 1 https://github.com/animegasan/luci-app-alpha-config
 git clone --depth 1 https://github.com/riverscn/openwrt-iptvhelper && mvdir openwrt-iptvhelper
-git clone --depth 1 -b openwrt-18.06 https://github.com/tty228/luci-app-wechatpush
+git clone --depth 1 https://github.com/tty228/luci-app-wechatpush
 git clone --depth 1 https://github.com/esirplayground/luci-app-poweroff
 git clone --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon wrtbwmon1 && mvdir wrtbwmon1
 git clone --depth 1 https://github.com/brvphoenix/wrtbwmon wrtbwmon2 && mvdir wrtbwmon2
@@ -38,7 +38,6 @@ git clone --depth 1 https://github.com/kenzok78/luci-app-argone-config
 git clone --depth 1 https://github.com/kenzok78/luci-app-adguardhome
 git clone --depth 1 https://github.com/kenzok78/luci-theme-design
 git clone --depth 1 https://github.com/kenzok78/luci-app-design-config
-git clone --depth 1 https://github.com/linkease/istore && mv -n istore/luci/* ./; rm -rf istore
 git clone --depth 1 https://github.com/muink/luci-app-homeproxy
 git clone --depth 1 https://github.com/muink/luci-app-dnsproxy
 git clone --depth 1 -b dev https://github.com/vernesong/OpenClash && mv -n OpenClash/luci-app-openclash ./; rm -rf OpenClash
