@@ -509,8 +509,8 @@ msgid "Please select device MAC"
 msgstr "请选择设备 MAC"
 
 #: applications/luci-app-wechatpush/htdocs/luci-static/resources/view/wechatpush/config.js:479
-msgid "Auto-ban unauthorized login devices"
-msgstr "自动封禁非法登录设备"
+msgid "Automatically ban devices with illegal logins (Note: The whitelist for bans is located under the \"Do Not Disturb\" tab)."
+msgstr "自动封禁非法登录设备（注：封禁白名单位于 “免打扰” 选项卡）"
 
 #: applications/luci-app-wechatpush/htdocs/luci-static/resources/view/wechatpush/config.js:484
 msgid "Blacklisting time (s)"
@@ -785,8 +785,8 @@ msgid "Send notification after the first login and do not repeat within the spec
 msgstr "首次登录后推送通知，在设定时间内不再重复提醒<br/>偷懒一下，登录时间从日志中读取，请确保开启日志功能"
 
 #: applications/luci-app-wechatpush/htdocs/luci-static/resources/view/wechatpush/config.js:682
-msgid "Login reminder whitelist"
-msgstr "登录提醒白名单"
+msgid "Login Alert (Auto-Ban) Whitelist"
+msgstr "登录提醒（自动封禁）白名单"
 
 #: applications/luci-app-wechatpush/htdocs/luci-static/resources/view/wechatpush/config.js:689
 msgid "Login reminder log anti-flooding"
