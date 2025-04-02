@@ -66,8 +66,9 @@ git_sparse_clone openwrt-23.05 "https://github.com/openwrt/packages" "22packages
 utils/cgroupfs-mount utils/coremark utils/watchcat utils/dockerd net/nginx net/ddns-scripts \
 admin/netdata
 
-# update netbird to 0.39.1
-git_sparse_clone master "https://github.com/openwrt/packages" "openwrt_master_packages" net/netbird
+# update and pin netbird to 0.39.1
+# git_sparse_clone master "https://github.com/openwrt/packages" "openwrt_master_packages" net/netbird
+cat $GITHUB_WORKSPACE/.github/diy/patches/netbird.diff
 patch -p1 < $GITHUB_WORKSPACE/.github/diy/patches/netbird.diff
 
 git_sparse_clone openwrt-23.05 "https://github.com/openwrt/openwrt" "openwrt" package/libs/openssl
