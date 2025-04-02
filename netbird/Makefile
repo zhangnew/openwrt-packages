@@ -1,14 +1,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=netbird
-PKG_VERSION:=0.24.3
+PKG_VERSION:=0.39.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/netbirdio/netbird/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=6590034fe8a8dc215242bbd7706197beef67a63a099a45a30c436373c892aab0
+PKG_HASH:=67fe03e22d5a8c1b7a682e2c1846aa70bef0bfdef632157c31e6aace3f0012b4
 
-PKG_MAINTAINER:=Oskari Rauta <oskari.rauta@gmail.com>
+PKG_MAINTAINER:=Wesley Gimenes <wehagy@proton.me>
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE
 
@@ -29,7 +29,7 @@ define Package/netbird
   SUBMENU:=VPN
   TITLE:=Connect your devices into a single secure private WireGuard®-based mesh network
   URL:=https://netbird.io
-  DEPENDS:=$(GO_ARCH_DEPENDS)
+  DEPENDS:=$(GO_ARCH_DEPENDS) +kmod-wireguard
 endef
 
 define Package/netbird/description
@@ -43,12 +43,6 @@ endef
 define Package/netbird/conffiles
 /etc/netbird/config.json
 endef
-
-# Workaround for musl 1.2.4 compability in mattn/go-sqlite3
-# https://github.com/mattn/go-sqlite3/issues/1164
-ifneq ($(CONFIG_USE_MUSL),)
-	TARGET_CFLAGS += -D_LARGEFILE64_SOURCE
-endif
 
 define Package/netbird/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
