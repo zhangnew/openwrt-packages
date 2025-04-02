@@ -68,7 +68,7 @@ admin/netdata
 
 # update and pin netbird to 0.39.1
 # git_sparse_clone master "https://github.com/openwrt/packages" "openwrt_master_packages" net/netbird
-patch -p1 < $GITHUB_WORKSPACE/.github/diy/patches/netbird.diff
+# patch -p1 < $GITHUB_WORKSPACE/.github/diy/patches/netbird.diff
 
 git_sparse_clone openwrt-23.05 "https://github.com/openwrt/openwrt" "openwrt" package/libs/openssl
 
