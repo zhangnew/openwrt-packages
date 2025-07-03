@@ -1222,11 +1222,15 @@ function action_start()
 end
 
 function action_get_last_version()
-	luci.sys.call("bash /usr/share/openclash/clash_version.sh &")
-	luci.sys.call("bash /usr/share/openclash/openclash_version.sh &")
+    if not process_status("/usr/share/openclash/clash_version.sh") then
+	    luci.sys.call("bash /usr/share/openclash/clash_version.sh &")
+    end
+    if not process_status("/usr/share/openclash/openclash_version.sh") then
+	    luci.sys.call("bash /usr/share/openclash/openclash_version.sh &")
+    end
 	luci.http.prepare_content("application/json")
 	luci.http.write_json({
-			status = "success"
+		status = "success"
 	})
 end
 
@@ -3120,7 +3124,7 @@ function action_upload_config()
         filename = "upload_" .. os.date("%Y%m%d_%H%M%S")
     end
     
-    if not string.match(filename, "^[%w%s%-%_%.\\u4e00-\\u9fa5]+$") then
+    if string.find(filename, "[/\\]") or string.find(filename, "%.%.") then
         luci.http.write_json({
             status = "error",
             message = "Invalid filename characters"
