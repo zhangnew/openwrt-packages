@@ -64,9 +64,6 @@
     --success-a5: rgba(5, 150, 105, 0.05);
     --error-a12: rgba(255,80,80,0.12);
     --error-a18: rgba(255,80,80,0.18);
-    --cm-gutter-bg: #f5f5f5;
-    --cm-gutter-text: #999999;
-    --cm-gutter-border: #e2e8f0;
     --cm-indent-guide: rgba(128,128,128,0.25);
     --cm-placeholder: rgba(128,128,128,0.5);
     --cm-special-char: rgba(255,0,0,0.3);
@@ -139,9 +136,6 @@
     --success-a5: rgba(52, 211, 153, 0.05);
     --error-a12: rgba(255,80,80,0.12);
     --error-a18: rgba(255,80,80,0.18);
-    --cm-gutter-bg: #1f2937;
-    --cm-gutter-text: #858585;
-    --cm-gutter-border: #4b5563;
     --cm-indent-guide: rgba(255,255,255,0.12);
     --cm-placeholder: rgba(255,255,255,0.25);
     --cm-special-char: rgba(255,0,0,0.3);
@@ -288,10 +282,7 @@
 }
 
 .oc {
-    font-family: var(--font-family-base);
     line-height: 1.6;
-    color: var(--text-primary);
-    background-color: var(--bg-light);
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -1854,15 +1845,15 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: none;
     outline: none;
+    will-change: transform;
 }
 
 .oc-usage-help-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px var(--primary-a60);
+    transform: scale(1.1) translateZ(0);
 }
 
 .oc-usage-help-float:active {
-    transform: scale(0.95);
+    transform: scale(0.95) translateZ(0);
 }
 
 #usage-help-model .form-textarea {
@@ -1966,6 +1957,61 @@
     background-position: center;
     background-size: contain;
     opacity: 0.7;
+}
+
+.oc .subconverter-version-status {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    gap: 6px;
+    margin: 0 0 2px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: inherit;
+    line-height: 15px;
+    box-sizing: border-box;
+    word-break: break-word;
+}
+
+.oc .subconverter-version-status[hidden] {
+    display: none !important;
+}
+
+.oc .subconverter-version-label {
+    color: inherit;
+    font-weight: 600;
+    flex: 0 0 auto;
+}
+
+.oc .subconverter-version-text {
+    min-width: 0;
+}
+
+.oc .subconverter-version-status[data-state="checking"] {
+    color: var(--primary-color);
+}
+
+.oc .subconverter-version-status[data-state="success"] {
+    color: var(--success-color);
+}
+
+.oc .subconverter-version-status[data-state="unrecognized"],
+.oc .subconverter-version-status[data-state="empty"] {
+    color: var(--tip-color);
+}
+
+.oc .subconverter-version-status[data-state="error"] {
+    color: var(--error-color);
+}
+
+[data-page^="admin-services-openclash-config-subscribe-edit"] #cbi-openclash > .cbi-section:not(.cbi-tblsection) > .cbi-section-node[id^="cbi-openclash-"] {
+    padding-top: 14px;
+}
+
+[data-page^="admin-services-openclash-config-subscribe-edit"] #cbi-openclash > .cbi-section:not(.cbi-tblsection) textarea.cbi-input-textarea {
+    vertical-align: top;
 }
 
 .oc .filename-input-container {
@@ -2243,7 +2289,7 @@
  * ========================================================================== */
 @font-face {
     font-family: 'Twemoji Mozilla';
-    src: url('/luci-static/resources/openclash/fonts/TwemojiMozilla-flags-B12sb_Bp.woff2') format('woff2');
+    src: url('/luci-static/resources/openclash/fonts/TwemojiMozilla-flags.woff2') format('woff2');
 }
 .oc[data-darkmode="true"] #config-mode-tabs .mode-tab {
     color: var(--text-secondary);
@@ -2829,6 +2875,80 @@
 }
 
 /* ==========================================================================
+ * SECTION 3.5: config_merge_editor.htm — merge/compare toolbar
+ * ========================================================================== */
+
+/* ---- Merge editor toolbar (my_editor_div) ---- */
+.oc .oc-merge-editor-bar {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--bg-white);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.oc .oc-merge-editor-bar tr {
+    background: transparent;
+}
+
+.oc .oc-merge-editor-bar td {
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.oc .oc-merge-editor-cell-desc {
+    width: 50%;
+    text-align: center;
+}
+
+.oc .oc-merge-config-name {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.oc #oc-merge-toggle-btn.oc-usage-help-float {
+    position: absolute;
+    bottom: 16px;
+    right: 40px;
+    z-index: 10;
+}
+
+/* ---- CBI section description ---- */
+.oc .cbi-section-descr {
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: var(--bg-gray);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+.oc[data-darkmode="true"] .oc-merge-editor-bar {
+    background: var(--bg-white);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.oc[data-darkmode="true"] .oc-merge-editor-bar td {
+    color: var(--text-secondary);
+}
+
+.oc[data-darkmode="true"] .oc-merge-config-name {
+    color: var(--success-color);
+}
+
+.oc[data-darkmode="true"] .cbi-section-descr {
+    background: var(--bg-gray);
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
  * SECTION 4: CodeMirror 6 (cm-editor)
  * ========================================================================== */
 
@@ -2837,9 +2957,9 @@
     text-align: left !important;
     font-size: 15px;
     line-height: 150%;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     box-sizing: border-box;
 }
 .oc .cm-editor {
@@ -2884,6 +3004,7 @@
 }
 
 /* ---- Cursor gap (visual spacing between cursor and text) ---- */
+.oc .cm-editor.cm-focused { outline: none; }
 .oc .cm-editor.cm-focused .cm-cursor { transform: translateX(2px); }
 
 /* ---- Hide diff highlights when F10 toggles differences off ---- */
@@ -2950,16 +3071,6 @@
 }
 .oc[data-darkmode="true"] .cm-activeLineGutter {
     background-color: var(--cm-active-line-gutter);
-}
-
-/* ---- Gutter / Line Numbers ---- */
-.oc[data-darkmode="true"] .cm-gutters {
-    background-color: var(--cm-gutter-bg);
-    color: var(--cm-gutter-text);
-    border-right-color: var(--cm-gutter-border);
-}
-.oc[data-darkmode="true"] .cm-lineNumbers .cm-gutterElement {
-    color: var(--cm-gutter-text);
 }
 
 /* ---- Log Viewer Token Styles ---- */
@@ -4256,7 +4367,6 @@
     background-color: #f5f5f5;
     width: 100% !important;
     max-width: 100% !important;
-    min-width: 200px;
     box-sizing: border-box;
     border-radius: 6px;
     height: 36px;

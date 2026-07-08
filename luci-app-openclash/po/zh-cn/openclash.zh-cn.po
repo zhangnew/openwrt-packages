@@ -2004,8 +2004,8 @@ msgstr "切换成功！"
 msgid "switching failed!"
 msgstr "切换失败！"
 
-msgid "Current Config File"
-msgstr "当前配置文件"
+msgid "Current Config"
+msgstr "当前配置"
 
 msgid "Up"
 msgstr "上传"
@@ -2354,6 +2354,12 @@ msgstr "解锁检测(选择)"
 
 msgid "All Proxies Test"
 msgstr "测试所有节点"
+
+msgid "Unlock Test Result"
+msgstr "解锁检测结果"
+
+msgid "All Proxies Test Result"
+msgstr "所有节点测试结果"
 
 msgid "Something Wrong While Testing..."
 msgstr "发生了一些错误，测试失败..."
@@ -3816,9 +3822,6 @@ msgstr "禁止连接复用"
 msgid "Write file failed:"
 msgstr "写入文件失败："
 
-msgid "Fix short-id values type failed:"
-msgstr "修改 short-id 值类型失败："
-
 msgid "Interface"
 msgstr "接口"
 
@@ -3854,9 +3857,6 @@ msgstr "无效的 YAML 覆写格式，跳过..."
 
 msgid "Parse YAML Override failed:"
 msgstr "YAML 覆写模块解析失败："
-
-msgid "YAML overwrite failed:"
-msgstr "YAML 覆写模块执行失败："
 
 msgid "files selected"
 msgstr "配置已选择"
@@ -4071,3 +4071,21 @@ msgstr "注意：oixCloud 需要安装专用内核才能使用，插件会自动
 
 msgid "After the core start, an oixCloud nodes provider will be added, which you can customize as needed"
 msgstr "专用内核启动后，会添加一个 oixCloud 节点组到配置文件，供您自定义使用"
+
+msgid "Checking backend version..."
+msgstr "正在检测后端版本..."
+
+msgid "Backend Version"
+msgstr "后端版本"
+
+msgid "Please enter backend URL"
+msgstr "请输入后端地址"
+
+msgid "Invalid backend URL"
+msgstr "后端地址格式无效"
+
+msgid "Backend version information not detected"
+msgstr "未识别到后端版本信息"
+
+msgid "Unable to detect backend version"
+msgstr "无法检测后端版本"
