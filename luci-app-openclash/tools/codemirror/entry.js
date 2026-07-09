@@ -864,6 +864,78 @@ const mergeDefaultConfig = {
 }
 
 // ============================================================
+// Merge scrollbar mirror — clones .cm-scroller scrollbar rules from
+// the active CM6 theme onto .cm-mergeView so the merge view
+// scrollbar matches the single-editor scrollbar exactly.
+// Also injects .cm-merge-revert button colours (theme-independent).
+// ============================================================
+function mirrorThemeScrollbar() {
+    var styles = document.querySelectorAll('style');
+    var mirrorCSS = '';
+    var themeStyle = null;
+
+    for (var i = 0; i < styles.length; i++) {
+        var text = styles[i].textContent || '';
+        if (text.indexOf('.cm-scroller::-webkit-scrollbar') === -1) continue;
+        themeStyle = styles[i];
+
+        var parts = [], m;
+
+        // Webkit pseudo-element rules:  ancestor .cm-scroller::-webkit-scrollbar...{body}
+        var reWebkit = /([^{}]*)\.cm-scroller(::-webkit-scrollbar[^{]*)\{([^}]*)\}/gi;
+        while ((m = reWebkit.exec(text)) !== null) {
+            parts.push('.cm-mergeView' + m[2] + '{' + m[3] + '}');
+        }
+
+        // Firefox scrollbar-width / scrollbar-color rules:  ancestor .cm-scroller{body}
+        var reFF = /([^{}]*)\.cm-scroller\{([^}]*scrollbar-(?:width|color)[^}]*)\}/gi;
+        while ((m = reFF.exec(text)) !== null) {
+            var body = m[2];
+            var sw = body.match(/scrollbar-width\s*:\s*[^;]+;?/);
+            var sc = body.match(/scrollbar-color\s*:\s*[^;]+;?/);
+            if (sw || sc) {
+                parts.push('.cm-mergeView{' + (sw ? sw[0] : '') + (sc ? sc[0] : '') + '}');
+            }
+        }
+
+        mirrorCSS = parts.join('');
+        break;
+    }
+
+    if (!themeStyle || !mirrorCSS) return;
+
+    var marker = '/*oc-merge-mirror*/';
+    var idx = themeStyle.textContent.indexOf(marker);
+    if (idx !== -1) {
+        themeStyle.textContent = themeStyle.textContent.substring(0, idx);
+    }
+
+    // 2. Revert button styles
+    var editorEl = document.querySelector('.cm-editor');
+    var contentEl = editorEl ? editorEl.querySelector('.cm-content') : null;
+    var cs = contentEl ? getComputedStyle(contentEl) : null;
+    var txt = cs ? cs.color : null;
+    var rgb = txt ? txt.match(/[\d.]+/g) : null;
+    var editorCS = editorEl ? getComputedStyle(editorEl) : null;
+    var bg = editorCS ? editorCS.backgroundColor : null;
+    var revertCSS;
+    if (rgb && rgb.length >= 3) {
+        var r = rgb[0], g = rgb[1], b = rgb[2];
+        var gutterBg = 'rgba(' + r + ',' + g + ',' + b + ',0.06)';
+        revertCSS =
+            '.cm-merge-revert{background:' + gutterBg + '}' +
+            '.cm-merge-revert button{color:rgba(' + r + ',' + g + ',' + b + ',0.5)}' +
+            '.cm-merge-revert button:hover{color:' + txt + ';background:rgba(' + r + ',' + g + ',' + b + ',0.12)}';
+    } else {
+        revertCSS =
+            '.cm-merge-revert button{color:#656d76}' +
+            '.cm-merge-revert button:hover{color:#1f2328;background:rgba(175,184,193,0.2)}';
+    }
+
+    themeStyle.textContent += marker + mirrorCSS + revertCSS;
+}
+
+// ============================================================
 // Theme compartment — allows dynamic light/dark switching
 // ============================================================
 const themeCompartment = new Compartment
@@ -876,6 +948,8 @@ function dispatchTheme(view, isDark) {
     view.dispatch({
         effects: themeCompartment.reconfigure(isDark ? githubDark : githubLight)
     })
+    // Mirror scrollbar rules into the new theme stylesheet
+    mirrorThemeScrollbar();
 }
 
 // ============================================================
@@ -907,29 +981,14 @@ function toggleFullscreen(dom) {
 }
 
 // ============================================================
-// Theme observer — watch data-darkmode on <html> for all CM6 editors
+// Theme detection — reads localStorage then falls back to system preference
 // ============================================================
-var _themeObserverInstalled = false;
 
-function startThemeObserver() {
-    if (_themeObserverInstalled || typeof MutationObserver === 'undefined') return;
-    _themeObserverInstalled = true;
-    var observer = new MutationObserver(function() {
-        var theme = localStorage.getItem('oc-theme') || 'auto';
-        var isDark;
-        if (theme === 'dark') isDark = true;
-        else if (theme === 'light') isDark = false;
-        else isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        switchHljsTheme(isDark);
-        var editors = document.querySelectorAll('.cm-editor');
-        for (var i = 0; i < editors.length; i++) {
-            var view = editors[i].cmView && editors[i].cmView.view;
-            if (view) {
-                try { dispatchTheme(view, isDark); } catch(e) {}
-            }
-        }
-    });
-    observer.observe(document.body, { attributes: true, attributeFilter: ['data-darkmode'], subtree: true });
+function _isDarkMode() {
+    var theme = localStorage.getItem('oc-theme') || 'auto';
+    if (theme === 'dark') return true;
+    if (theme === 'light') return false;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
 // ============================================================
@@ -940,11 +999,7 @@ var _hljsCSSInjected = false
 function injectHljsCSS() {
     if (_hljsCSSInjected) return
     _hljsCSSInjected = true
-    var theme = localStorage.getItem('oc-theme') || 'auto'
-    var isDark
-    if (theme === 'dark') isDark = true
-    else if (theme === 'light') isDark = false
-    else isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+    var isDark = _isDarkMode()
     var style = document.createElement("style")
     style.id = "hljs-theme"
     style.textContent = isDark ? githubDarkCSS : githubLightCSS
@@ -1001,9 +1056,9 @@ export {
     MergeView,
     logLanguage, logHighlightStyle,
     baseExtensions, placeholderExtension, indentMarkerExtension,
-    topSearchExtension, mergeDefaultConfig,
+    topSearchExtension, mergeDefaultConfig, mirrorThemeScrollbar,
     themeExtension, dispatchTheme,
-    startThemeObserver,
+    switchHljsTheme,
     renderMarkdown,
     getActiveEditor, toggleFullscreen
 }
