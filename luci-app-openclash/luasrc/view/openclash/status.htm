@@ -392,8 +392,6 @@
         },
 
         applyDarkMode: function() {
-            ocUpdateTheme();
-
             var sunIcon = document.getElementById('sun-icon');
             var moonIcon = document.getElementById('moon-icon');
             var autoIcon = document.getElementById('auto-icon');
@@ -2762,7 +2760,6 @@
                 this._portal.style.overflow = 'visible';
                 document.body.appendChild(this._portal);
                 this._portal.appendChild(this.overlay);
-                ocUpdateTheme();
             }
             this.overlay.style.display = 'flex';
             if (this.statusEl) {
@@ -2817,13 +2814,9 @@
     };
 
     var pluginToggleUserAction = false;
-    var _lastNotRunningPoll = 0;
 
     XHR.poll(5, '<%=luci.dispatcher.build_url("admin", "services", "openclash", "status")%>', null, function(x, status) {
         if (x && x.status == 200) {
-
-            if (!status.clash && Date.now() - _lastNotRunningPoll < 30000) return;
-            if (!status.clash) _lastNotRunningPoll = Date.now();
             var updates = [];
 
             if (!pluginToggleUserAction) {
@@ -4213,6 +4206,7 @@
         var newIndex = (currentIndex + 1) % themes.length;
         var newTheme = themes[newIndex];
         localStorage.setItem('oc-theme', newTheme);
+        ocUpdateTheme();
         DarkModeDetector.init();
     }
 //]]></script>
